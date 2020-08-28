@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import Ztext from '.'
 
-describe('ExampleComponent', () => {
+describe('Ztext', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(Ztext).toBeTruthy()
   })
 })

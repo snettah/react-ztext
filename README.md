@@ -1,6 +1,6 @@
 # react-ztext
 
-> Ztextjs implementation in React
+> [Ztextjs](https://github.com/bennettfeely/bennett/tree/master/ztext) implementation in React
 
 [![NPM](https://img.shields.io/npm/v/react-ztext.svg)](https://www.npmjs.com/package/react-ztext) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -10,20 +10,35 @@
 npm install --save react-ztext
 ```
 
+```bash
+yarn add react-ztext
+```
+
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React from 'react'
+import Ztext from 'react-ztext'
 
-import MyComponent from 'react-ztext'
-import 'react-ztext/dist/index.css'
-
-class Example extends Component {
-  render() {
-    return <MyComponent />
-  }
-}
+const Example = () => (
+  <Ztext
+    depth='1rem'
+    direction='both'
+    event='pointer'
+    eventRotation='30deg'
+    eventDirection='default'
+    fade={false}
+    layers={10}
+    perspective='500px'
+  >
+    <span role='img' aria-label='emoji'>
+      😂🔥🍔
+    </span>
+  </Ztext>
+)
 ```
+
+[Documentation](https://bennettfeely.com/ztext/)
 
 ## License
 
