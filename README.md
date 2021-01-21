@@ -1,6 +1,6 @@
 # react-ztext
 
-> [Ztextjs](https://github.com/bennettfeely/bennett/tree/master/ztext) implementation in React
+> [Ztext.js](https://github.com/bennettfeely/ztext) implementation in React
 
 [![NPM](https://img.shields.io/npm/v/react-ztext.svg)](https://www.npmjs.com/package/react-ztext) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -38,7 +38,7 @@ const Example = () => (
 )
 ```
 
-[Documentation](https://bennettfeely.com/ztext/)
+[ZText.js Documentation](https://bennettfeely.com/ztext/)
 
 ## License
 
