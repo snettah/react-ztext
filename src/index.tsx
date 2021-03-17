@@ -1,4 +1,5 @@
-import * as React from 'react'
+import React from 'react'
+import styled from 'styled-components'
 import Layers from './Layers'
 
 interface Props {
@@ -14,12 +15,8 @@ interface Props {
   style?: React.CSSProperties
 }
 
-const Ztext = (props: Props) => {
-  const [style, setStyle] = React.useState<React.CSSProperties>({
-    display: 'inline-block',
-    WebkitTransformStyle: 'preserve-3d',
-    transformStyle: 'preserve-3d'
-  })
+const Ztext: React.FC<Props> = (props) => {
+  const layersWrapperRef = React.useRef<HTMLSpanElement>(null)
 
   const tilt = React.useCallback(
     (xPct: number, yPct: number) => {
@@ -40,15 +37,9 @@ const Ztext = (props: Props) => {
       const yTilt = -yPct * eventRotationNumeral * eventDirectionAdj
 
       // Rotate .z-layers as a function of x and y coordinates
-      const transform =
-        'rotateX(' +
-        yTilt +
-        eventRotationUnit +
-        ') rotateY(' +
-        xTilt +
-        eventRotationUnit +
-        ')'
-      setStyle({ ...style, transform, WebkitTransform: transform })
+      const transform = `rotateX(${yTilt}${eventRotationUnit}) rotateY(${xTilt}${eventRotationUnit})`
+
+      layersWrapperRef.current?.style.setProperty('--transform', transform)
     },
     [props.eventDirection]
   )
@@ -80,26 +71,24 @@ const Ztext = (props: Props) => {
   }, [props.event])
 
   return (
-    <div
+    <Wrapper
       style={{
-        display: 'inline-block',
-        position: 'relative',
-        WebkitPerspective: props.perspective,
-        perspective: props.perspective
+        //@ts-expect-error
+        '--perspective': props.perspective,
+        ...props.style
       }}
     >
-      <span className='z-text' style={style}>
+      <LayersWrapper ref={layersWrapperRef}>
         <Layers
           layers={props.layers}
           direction={props.direction}
           depth={props.depth}
           fade={props.fade}
-          style={props.style}
         >
           {props.children}
         </Layers>
-      </span>
-    </div>
+      </LayersWrapper>
+    </Wrapper>
   )
 }
 
@@ -113,5 +102,17 @@ Ztext.defaultProps = {
   layers: 10,
   perspective: '500px'
 }
+
+const Wrapper = styled.div`
+  display: inline-block;
+  position: relative;
+  perspective: var(--perspective);
+`
+
+const LayersWrapper = styled.span`
+  display: inline-block;
+  transform-style: preserve-3d;
+  transform: var(--transform);
+`
 
 export default Ztext

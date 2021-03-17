@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 interface Props {
   index: number
@@ -7,6 +8,21 @@ interface Props {
   children: React.ReactNode
   style?: React.CSSProperties
 }
+
+const Layer = React.memo(({ index, opacity, transform, children }: Props) => {
+  return (
+    <StyledLayer
+      style={{
+        //@ts-expect-error
+        '--transform': transform,
+        '--opacity': opacity,
+        ...(index >= 1 && backLayersStyle)
+      }}
+    >
+      {children}
+    </StyledLayer>
+  )
+})
 
 const backLayersStyle: React.CSSProperties = {
   position: 'absolute',
@@ -19,25 +35,10 @@ const backLayersStyle: React.CSSProperties = {
   userSelect: 'none'
 }
 
-const Layer = React.memo(
-  ({ index, opacity, style, transform, children }: Props) => {
-    return (
-      <span
-        className='z-layer'
-        style={{
-          display: 'inline-block',
-          WebkitTransform: transform,
-          transform,
-          fontSize: '80px',
-          opacity,
-          ...style,
-          ...(index >= 1 && backLayersStyle)
-        }}
-      >
-        {children}
-      </span>
-    )
-  }
-)
+const StyledLayer = styled.span`
+  display: inline-block;
+  opacity: var(--opacity);
+  transform: var(--transform);
+`
 
 export default Layer
