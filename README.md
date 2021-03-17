@@ -4,6 +4,10 @@
 
 [![NPM](https://img.shields.io/npm/v/react-ztext.svg)](https://www.npmjs.com/package/react-ztext) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Demo
+
+[CodeSandbox](https://codesandbox.io/s/react-ztext-fjmzz?file=/src/App.js)
+
 ## Install
 
 ```bash
