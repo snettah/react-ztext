@@ -4,7 +4,7 @@ import Ztext from 'react-ztext'
 
 const App = () => {
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', fontSize: '4rem' }}>
       <Ztext
         depth='1rem'
         direction='both'
@@ -14,9 +14,6 @@ const App = () => {
         fade={false}
         layers={10}
         perspective='500px'
-        style={{
-          fontSize: '4rem'
-        }}
       >
         <span role='img' aria-label='emoji'>
           😂🔥🍔
