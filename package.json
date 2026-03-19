@@ -17,12 +17,12 @@
     },
     "./styles": "./dist/ztext.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "lint": "eslint src/"
   },
   "peerDependencies": {
@@ -30,23 +30,23 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@testing-library/react": "^16.0.0",
+    "@eslint/js": "^9.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.6.0",
     "eslint": "^9.0.0",
-    "typescript-eslint": "^8.0.0",
-    "@eslint/js": "^9.0.0",
     "globals": "^15.0.0",
-    "jsdom": "^25.0.0",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "typescript": "^5.8.0",
+    "typescript-eslint": "^8.0.0",
     "vite": "^8.0.0",
-    "@vitejs/plugin-react": "^4.6.0",
-    "vite-plugin-dts": "^4.0.0",
-    "vitest": "^3.0.0"
+    "vite-plugin-dts": "^4.0.0"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "dependencies": {
+    "ajv": "^8.18.0"
   }
 }

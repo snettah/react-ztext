@@ -1,0 +1,25 @@
+.ztext {
+  display: inline-block;
+  position: relative;
+}
+
+.ztext-inner {
+  display: inline-block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: rotateX(var(--ztext-rotate-x, 0deg)) rotateY(var(--ztext-rotate-y, 0deg));
+}
+
+.ztext-layer {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ztext-layer:first-child {
+  position: relative;
+  pointer-events: auto;
+  user-select: auto;
+}
