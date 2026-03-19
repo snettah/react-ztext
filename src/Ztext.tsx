@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, type CSSProperties } from 'react'
+import { createElement, forwardRef, type CSSProperties } from 'react'
 import { useZtext } from './useZtext'
 import { DEFAULTS, type ZtextProps } from './types'
 import './ztext.css'
@@ -34,36 +34,34 @@ export const Ztext = forwardRef<HTMLElement, ZtextProps>(function Ztext(
   })
 
   const wrapperStyle: CSSProperties = {
-    perspective,
     ...style,
+    perspective,
   }
 
-  const Component = Tag as React.ElementType
-
-  return (
-    <Component
-      ref={(node: HTMLElement | null) => {
+  return createElement(
+    Tag,
+    {
+      ref: (node: HTMLElement | null) => {
         if (typeof ref === 'function') ref(node)
         else if (ref) (ref as React.MutableRefObject<HTMLElement | null>).current = node
-      }}
-      className={className ? `ztext ${className}` : 'ztext'}
-      style={wrapperStyle}
+      },
+      className: className ? `ztext ${className}` : 'ztext',
+      style: wrapperStyle,
+    },
+    <span
+      ref={containerRef as React.RefObject<HTMLSpanElement>}
+      className="ztext-inner"
     >
-      <span
-        ref={containerRef as React.RefObject<HTMLSpanElement>}
-        className="ztext-inner"
-      >
-        {layers.map((layer, i) => (
-          <span
-            key={i}
-            className="ztext-layer"
-            style={layer.style}
-            {...(layer.ariaHidden ? { 'aria-hidden': true } : {})}
-          >
-            {children}
-          </span>
-        ))}
-      </span>
-    </Component>
+      {layers.map((layer, i) => (
+        <span
+          key={i}
+          className="ztext-layer"
+          style={layer.style}
+          aria-hidden={layer.ariaHidden || undefined}
+        >
+          {children}
+        </span>
+      ))}
+    </span>
   )
 })

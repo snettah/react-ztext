@@ -41,13 +41,17 @@ export function useZtext(options: UseZtextOptions = {}): UseZtextReturn {
     const { numeral, unit } = parseDepth(depth)
 
     return Array.from({ length: clampedLayers }, (_, i) => {
-      const pct = i / clampedLayers
+      // Ease-out distribution: more layers near the surface, fewer at the back
+      const t = i / clampedLayers
+      const pct = 1 - (1 - t) * (1 - t)
       const offset = computeOffset(direction, pct, numeral)
       const opacity = fade ? (1 - pct) / 2 : 1
+      // Scale deeper layers slightly larger to fill gaps between planes
+      const scaleBoost = 1 + pct * 0.02
 
       return {
         style: {
-          transform: `translateZ(${offset}${unit})`,
+          transform: `translateZ(${offset}${unit}) scale(${scaleBoost})`,
           opacity,
         },
         ariaHidden: i > 0,

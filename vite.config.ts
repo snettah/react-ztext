@@ -1,4 +1,3 @@
-/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
@@ -14,6 +13,7 @@ export default defineConfig({
       entry: resolve(import.meta.dirname, 'src/index.ts'),
       formats: ['es', 'cjs'],
       fileName: (format) => format === 'es' ? 'index.js' : 'index.cjs',
+      cssFileName: 'ztext',
     },
     rollupOptions: {
       external: ['react', 'react-dom', 'react/jsx-runtime'],
@@ -24,10 +24,5 @@ export default defineConfig({
         },
       },
     },
-    cssFileName: 'ztext.css',
-  },
-  test: {
-    environment: 'jsdom',
-    globals: true,
   },
 })

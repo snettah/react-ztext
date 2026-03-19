@@ -29,12 +29,13 @@ export function usePointerTracking({
 
     const { numeral: rotationNumeral, unit: rotationUnit } = parseRotation(eventRotation)
     const directionAdj = eventDirection === 'reverse' ? -1 : 1
+    const maxAngle = Math.min(rotationNumeral, 75)
 
     const update = () => {
       const el = containerRef.current
       if (el) {
-        const xTilt = pointerRef.current.x * rotationNumeral * directionAdj
-        const yTilt = -pointerRef.current.y * rotationNumeral * directionAdj
+        const xTilt = Math.max(-maxAngle, Math.min(maxAngle, pointerRef.current.x * rotationNumeral * directionAdj))
+        const yTilt = Math.max(-maxAngle, Math.min(maxAngle, -pointerRef.current.y * rotationNumeral * directionAdj))
         el.style.setProperty('--ztext-rotate-x', `${yTilt}${rotationUnit}`)
         el.style.setProperty('--ztext-rotate-y', `${xTilt}${rotationUnit}`)
       }
@@ -63,7 +64,7 @@ export function usePointerTracking({
       scheduleUpdate()
     }
 
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
     window.addEventListener('touchmove', onTouchMove, { passive: true })
 
     return () => {
@@ -71,5 +72,5 @@ export function usePointerTracking({
       window.removeEventListener('touchmove', onTouchMove)
       cancelAnimationFrame(rafIdRef.current)
     }
-  }, [enabled, containerRef, eventRotation, eventDirection])
+  }, [enabled, eventRotation, eventDirection])
 }
